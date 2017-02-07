@@ -1,10 +1,10 @@
 {
   "name": "github-related-emails-tor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Helps find the email address of a GitHub user, and related emails. Sorted by relevance. Works through your Tor client.",
   "main": "index.js",
   "dependencies": {
-    "yargs": "~6.6.0"
+    "yargs": "~6.6.0",
     "tor-request": "1.0.6"
   },
   "scripts": {
