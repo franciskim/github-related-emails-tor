@@ -1,0 +1,31 @@
+{
+  "name": "github-related-emails-tor",
+  "version": "0.0.1",
+  "description": "Helps find the email address of a GitHub user, and related emails. Sorted by relevance. Works through your Tor client.",
+  "main": "index.js",
+  "dependencies": {
+    "yargs": "~6.6.0"
+    "tor-request": "1.0.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/franciskim/github-related-emails-tor"
+  },
+  "keywords": [
+    "github",
+    "find",
+    "user",
+    "email",
+    "emails",
+    "scrape",
+    "api",
+    "public",
+    "data",
+    "tor"
+  ],
+  "author": "Francis Kim <hello@franciskim.co> (https://franciskim.co)",
+  "license": "ISC"
+}
