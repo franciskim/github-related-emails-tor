@@ -9,7 +9,7 @@ let options = {
 
 const clean = emails => {
     let uniq = emails
-        .map((email) => {
+        .map(email => {
             return {count: 1, name: email}
         })
         .reduce((a, b) => {
@@ -23,10 +23,16 @@ const clean = emails => {
     })
 }
 
-const process = (options, resolve) => {
+const process = (options, resolve, reject) => {
     tr.request(options, (err, res, body) => {
-        if (!err && res.statusCode !== 200) console.error(`Status code: ${res.statusCode}`)
-        else if (err) console.error(err)
+        if (!err && res.statusCode !== 200) {
+            if (argv.user) console.error(`Status code: ${res.statusCode}`)
+            else reject(`Status code: ${res.statusCode}`)
+        }
+        else if (err) {
+            if (argv.user) console.error(err)
+            else reject(err)
+        }
         else {
             let emails = body.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/gm)
             if (emails != null && emails.length > 0) {
@@ -53,8 +59,8 @@ if (argv.user) {
 }
 
 module.exports = user => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         options.url = `https://api.github.com/users/${user}/events/public`
-        process(options, resolve)
+        process(options, resolve, reject)
     })
 }
